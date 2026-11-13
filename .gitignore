@@ -1,0 +1,17 @@
+# Virtual environment
+.venv/
+
+# Bytecode
+__pycache__/
+*.py[cod]
+
+# Tool caches
+.ruff_cache/
+.pytest_cache/
+
+# Run logs and local working artifacts
+*.log
+.priv/
+
+# Experiment output
+results/
