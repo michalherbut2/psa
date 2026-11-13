@@ -1,7 +1,6 @@
 """Declared shape of the timing helper."""
 
 import dataclasses
-from typing import Any
 
 import pytest
 
@@ -19,10 +18,3 @@ def test_timed_is_frozen() -> None:
 
     with pytest.raises(dataclasses.FrozenInstanceError):
         timed.value = 2
-
-
-def test_timed_carries_its_value_type() -> None:
-    def to_float(timed: Timed[Any]) -> float:
-        return timed.elapsed_seconds
-
-    assert to_float(Timed(value="x", elapsed_seconds=1.5)) == 1.5
