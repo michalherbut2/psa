@@ -36,12 +36,7 @@ def test_registry_resolves_each_algorithm(name: str, algorithm_class: type[Algor
     resolved = get_algorithm(name)
     assert isinstance(resolved, algorithm_class)
     assert resolved.name == name
-
-
-@pytest.mark.parametrize(("name", "algorithm_class"), DECLARED_ALGORITHMS)
-def test_registry_returns_a_fresh_instance(name: str, algorithm_class: type[Algorithm]) -> None:
-    assert isinstance(get_algorithm(name), algorithm_class)
-    assert get_algorithm(name) is not get_algorithm(name)
+    assert get_algorithm(name) is not resolved
 
 
 def test_registry_rejects_an_unknown_name() -> None:
