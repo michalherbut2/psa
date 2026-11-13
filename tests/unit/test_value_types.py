@@ -4,6 +4,7 @@ import dataclasses
 
 import pytest
 
+from binpack.experiments.generate import InstanceSpec, LoadProfile
 from binpack.model import Container, Instance, Node
 from binpack.results import (
     AlgorithmResult,
@@ -24,10 +25,14 @@ type Record = (
     | StabilityReport
     | AlgorithmResult
     | ExperimentRun
+    | InstanceSpec
 )
 
 EMPTY_INSTANCE = Instance(name="empty", nodes=(), containers=())
 EMPTY_SOLUTION = Solution(assignments=(), unassigned=())
+EMPTY_SPEC = InstanceSpec(
+    containers=0, nodes=0, priority_range=(1, 5), load_profile=LoadProfile.MIXED
+)
 EMPTY_METRICS = QualityMetrics(
     launched=0,
     priority_sum=0,
@@ -77,6 +82,7 @@ EMPTY_METRICS = QualityMetrics(
             ExperimentRun(instance=EMPTY_INSTANCE, results=(), metrics=()),
             ["instance", "results", "metrics"],
         ),
+        (EMPTY_SPEC, ["containers", "nodes", "priority_range", "load_profile"]),
     ],
     ids=[
         "container",
@@ -89,6 +95,7 @@ EMPTY_METRICS = QualityMetrics(
         "stability_report",
         "algorithm_result",
         "experiment_run",
+        "instance_spec",
     ],
 )
 def test_declares_fields(value: Record, field_names: list[str]) -> None:
@@ -110,6 +117,7 @@ def test_declares_fields(value: Record, field_names: list[str]) -> None:
         ),
         AlgorithmResult(algorithm="ffd", solution=EMPTY_SOLUTION, seed=0, runtime_seconds=0.0),
         ExperimentRun(instance=EMPTY_INSTANCE, results=(), metrics=()),
+        EMPTY_SPEC,
     ],
     ids=[
         "container",
@@ -122,6 +130,7 @@ def test_declares_fields(value: Record, field_names: list[str]) -> None:
         "stability_report",
         "algorithm_result",
         "experiment_run",
+        "instance_spec",
     ],
 )
 def test_is_frozen(value: Record) -> None:
@@ -140,6 +149,7 @@ def test_is_frozen(value: Record) -> None:
         (EMPTY_SOLUTION, "unassigned"),
         (ExperimentRun(instance=EMPTY_INSTANCE, results=(), metrics=()), "results"),
         (ExperimentRun(instance=EMPTY_INSTANCE, results=(), metrics=()), "metrics"),
+        (EMPTY_SPEC, "priority_range"),
     ],
 )
 def test_holds_tuples(value: Record, field_name: str) -> None:
