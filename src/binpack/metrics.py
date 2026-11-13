@@ -13,5 +13,5 @@ def evaluate(instance: Instance, solution: Solution, runtime_seconds: float) -> 
 
 
 def aggregate(runs: Sequence[QualityMetrics]) -> StabilityReport:
-    """Return the stability report of the supplied runs."""
+    """Return the stability report of the supplied runs of one algorithm."""
     raise NotImplementedError

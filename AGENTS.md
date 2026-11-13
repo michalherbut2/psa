@@ -12,7 +12,7 @@ Rules for automated agents working in this repository.
 ## Layout
 
 - `src/binpack` is the package; every module lives under this import root.
-- `tests/unit` mirrors the package layout under `src/binpack`.
+- `tests/unit` mirrors the package layout under `src/binpack` where a module has its own tests; batteries covering several modules sit at the tier root.
 - `tests/integration` holds checks that need an external service.
 - `Makefile` is the only spelling of each check.
 - `pyproject.toml` carries metadata, dependencies, and tool configuration; `uv.lock` pins the resolved tree; `.python-version` pins the interpreter.

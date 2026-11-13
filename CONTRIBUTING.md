@@ -31,7 +31,7 @@ Zmiana trafia do przeglądu dopiero wtedy, gdy `make lint` i `make test` kończ�
 
 ## Testy
 
-Testy jednostkowe w `tests/unit` odwzorowują strukturę `src/binpack`.
+Testy jednostkowe w `tests/unit` odwzorowują strukturę `src/binpack` tam, gdzie moduł ma własne testy; testy obejmujące kilka modułów leżą w katalogu głównym tego poziomu.
 Nowe zachowanie wymaga testu jednostkowego; test opisuje kontrakt punktu wejścia, a nie jego implementację.
 Testy integracyjne w `tests/integration` uruchamiamy tylko wtedy, gdy sprawdzenie wymaga działającego kontenera.
 Noszą one marker `docker` i są pomijane, gdy demon kontenerów nie odpowiada; brak demona nie jest błędem.
